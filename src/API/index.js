@@ -32,3 +32,18 @@ export const fetchIndia = async ()=>{
         console.log(err);
     }
 }
+
+export const fetchDailyData = async ()=>{
+    try{
+        const {data} = await axios.get(`${url}/daily`);
+        const modified = data.map((dailyData)=>({
+            confirmed:dailyData.confirmed.total,
+            deaths:dailyData.deaths.total,
+            date:dailyData.reportDate
+        }));
+        return modified;
+    }
+    catch(error){
+        console.log(error);
+    }
+}
