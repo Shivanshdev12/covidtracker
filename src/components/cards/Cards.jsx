@@ -5,7 +5,12 @@ import CountUp from 'react-countup';
 import cx from 'classnames';
 
 const Cards = (props) => {
-    if(!props.data.confirmed) return 'loading!!!';
+    if(!props.data.confirmed)
+    return (
+        <div style={{ position: 'relative', width: 200, height: 200 }}>
+            <h3>Loading!!</h3>
+        </div>
+    );
     return (
         <div className={styles.container}>
             <Grid container spacing={3} justify="center">
