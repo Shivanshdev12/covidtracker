@@ -4,6 +4,7 @@ import Cards from './components/cards/Cards';
 import Charts from './components/Charts/Charts';
 import { fetchData, fetchIndia, fetchDailyData } from './API/index';
 import img from './images/corona.png';
+import Maps from './components/Map/Maps';
 
 
 class App extends Component {
@@ -22,7 +23,8 @@ class App extends Component {
       <div className={styles.container}>
         <h1><img className={styles.image} src={img} />  COVID TRACKER</h1>
         <Cards data={this.state.data} dataIndia={this.state.dataIndia} />
-        <Charts data={this.state.data} />
+        {/* <Charts data={this.state.data} /> */}
+        <Maps/>
       </div>
     )
   }

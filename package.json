@@ -12,11 +12,16 @@
     "chart.js": "^2.9.3",
     "classes": "^0.3.0",
     "classnames": "^2.2.6",
+    "country-code-lookup": "0.0.18",
+    "mapbox-gl": "^1.12.0",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
     "react-countup": "^4.3.3",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-map-gl": "^5.2.9",
+    "react-scripts": "3.4.3",
+    "swr": "^0.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
