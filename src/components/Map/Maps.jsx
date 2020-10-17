@@ -3,10 +3,11 @@ import mapboxgl from "mapbox-gl";
 import useSWR from "swr"; // React hook to fetch the data
 import lookup from "country-code-lookup"; // npm module to get ISO Code for countries
 
+import './Maps.scss';
 import "mapbox-gl/dist/mapbox-gl.css";
 mapboxgl.accessToken = "pk.eyJ1Ijoic2hpdmFuc2gxMjM0IiwiYSI6ImNrZ2JhZmw0MjBibmEyeHFhYmk2NXNhMDAifQ._31D3XIt61x1VpyaOmXhWg";
 
-function Maps() {
+const Maps=()=>{
   
   const mapboxElRef = useRef(null);
   const fetcher = url =>
@@ -42,7 +43,7 @@ function Maps() {
         container: mapboxElRef.current,
         style: "mapbox://styles/shivansh1234/ckgcrf4rc118v1amti1dgprnj",
         center: [16, 27], // initial geo location
-        zoom: 2
+        zoom:1
       });
       map.addControl(new mapboxgl.NavigationControl());
 

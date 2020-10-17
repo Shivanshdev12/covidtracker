@@ -79,9 +79,6 @@ const Charts = ({ data}) => {
         <div>
            <Grid container spacing={3} justify="center">
                 <Grid component={Card} item md={6}>
-                    {lineChart}
-                </Grid>
-                <Grid component={Card} item md={6}>
                     {barChart}
                 </Grid>
            </Grid>
