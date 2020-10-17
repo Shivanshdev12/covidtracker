@@ -3,8 +3,6 @@ import mapboxgl from "mapbox-gl";
 import useSWR from "swr"; // React hook to fetch the data
 import lookup from "country-code-lookup"; // npm module to get ISO Code for countries
 
-import "./Maps.scss";
-
 import "mapbox-gl/dist/mapbox-gl.css";
 mapboxgl.accessToken = "pk.eyJ1Ijoic2hpdmFuc2gxMjM0IiwiYSI6ImNrZ2JhZmw0MjBibmEyeHFhYmk2NXNhMDAifQ._31D3XIt61x1VpyaOmXhWg";
 
@@ -102,16 +100,17 @@ function Maps() {
           {
             lastId = id;
             map.getCanvas().style.cursor = "pointer";
-            const {cases,deaths,country} = event.features[0].properties;
+            const {cases,deaths,country,province} = event.features[0].properties;
             const coordinates = event.features[0].geometry.coordinates.slice();
 
             const countryISO =  lookup.byCountry(country)?.iso2 || lookup.byInternet(country)?.iso2;
-            // const provinceHTML = province !== "null" ? `<p>Province: <b>${province}</b></p>` : "";
+            const provinceHTML = province !== "null" ? `<p><b>${province}</b></p>` : `${country}`;
             const mortalityRate = ((deaths/cases)*100).toFixed(2);
 
             const countryFlagHTML = Boolean(countryISO) ? `<img src="https://www.countryflags.io/${countryISO}/flat/64.png"></img>`: "";
             const HTML = 
             `<p>Country: <b>${country}</b></p>
+              <p>Area: <b>${provinceHTML}</b></p>
               <p>Cases: <b>${cases}</b></p>
               <p>Deaths: <b>${deaths}</b></p>
               <p>Mortality Rate: <b>${mortalityRate}%</b></p>
