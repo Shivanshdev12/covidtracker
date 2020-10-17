@@ -67,10 +67,71 @@ function Maps() {
           paint: {
             "circle-opacity": 0.75,
             "circle-stroke-width": 1,
-            "circle-radius": 4,
-            "circle-color": "#FFEB3B"
+            "circle-radius": [
+              "interpolate",
+              ["linear"],
+              ["get","cases"],
+              1,4,
+              1000,8,
+              4000,10,
+              8000,14,
+              12000,18,
+              100000,40
+            ],
+            "circle-color": [
+              "interpolate",
+              ["linear"],
+              ["get","cases"],
+              1,"#e5f5f9",
+              1000,"#ece2f0",
+              4000,"#99d8c9",
+              8000,"#a6bddb",
+              12000,"#2b8cbe",
+              100000,"#b10026"
+            ]
           }
         });
+        const popup = new mapboxgl.Popup({
+          closeButton:false,
+          closeOnClick:true
+        });
+        let lastId;
+        map.on('mousemove',"circles",event=>{
+          const id = event.features[0].properties.id;
+          if(id!==lastId)
+          {
+            lastId = id;
+            map.getCanvas().style.cursor = "pointer";
+            const {cases,deaths,country} = event.features[0].properties;
+            const coordinates = event.features[0].geometry.coordinates.slice();
+
+            const countryISO =  lookup.byCountry(country)?.iso2 || lookup.byInternet(country)?.iso2;
+            // const provinceHTML = province !== "null" ? `<p>Province: <b>${province}</b></p>` : "";
+            const mortalityRate = ((deaths/cases)*100).toFixed(2);
+
+            const countryFlagHTML = Boolean(countryISO) ? `<img src="https://www.countryflags.io/${countryISO}/flat/64.png"></img>`: "";
+            const HTML = 
+            `<p>Country: <b>${country}</b></p>
+              <p>Cases: <b>${cases}</b></p>
+              <p>Deaths: <b>${deaths}</b></p>
+              <p>Mortality Rate: <b>${mortalityRate}%</b></p>
+              ${countryFlagHTML}`;
+              
+              while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
+              }
+              popup
+              .setLngLat(coordinates)
+              .setHTML(HTML)
+              .addTo(map);
+            }
+        });
+        ///
+        map.on("mouseleave","circles",function(){
+          lastId = undefined;
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        })
       });
 
     }
