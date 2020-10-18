@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Maps from './components/Map/Maps';
 import * as serviceWorker from './serviceWorker';
+// import Maps from './components/Map/Maps';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <Maps/>
+      <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );
